@@ -1,0 +1,678 @@
+{
+  "id": "9e53cf6a-58e7-41e1-8728-b025035f2bb3",
+  "epilogue": 5,
+  "finalBossMissionId": 3006,
+  "chapterNumber": 1,
+  "heroes": [
+    {
+      "id": 6001,
+      "order": 0,
+      "maxLife": 139,
+      "currentLife": 112,
+      "rage": 0,
+      "bonusPower": 0,
+      "forcedSkin": {},
+      "treasure": [
+        {
+          "cardId": 7009
+        },
+        {
+          "cardId": 7006
+        },
+        {
+          "cardId": 7026
+        }
+      ],
+      "talents": [
+        {
+          "cardId": 71
+        },
+        {
+          "cardId": 256
+        },
+        {
+          "cardId": 6522
+        }
+      ],
+      "generatedTalents": [
+        {
+          "cardId": 71
+        },
+        {
+          "cardId": 256
+        },
+        {
+          "cardId": 6536
+        },
+        {
+          "cardId": 6522
+        },
+        {
+          "cardId": 257
+        },
+        {
+          "cardId": 6507
+        }
+      ]
+    },
+    {
+      "id": 6002,
+      "order": 1,
+      "maxLife": 30,
+      "currentLife": 30,
+      "rage": 0,
+      "bonusPower": 0,
+      "forcedSkin": {},
+      "treasure": [
+        {
+          "cardId": 7037
+        }
+      ],
+      "talents": [],
+      "generatedTalents": [
+        {
+          "cardId": 95
+        },
+        {
+          "cardId": 259
+        },
+        {
+          "cardId": 6518
+        },
+        {
+          "cardId": 6505
+        },
+        {
+          "cardId": 302
+        },
+        {
+          "cardId": 6503
+        }
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 31
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 2000
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 2000
+    },
+    {
+      "socketsCount": 2,
+      "gems": [
+        {
+          "cardId": 3275
+        }
+      ],
+      "cardId": 215
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 2037
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 3039
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 2999
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 3036
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 3000
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 3037
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 31
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 1049
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 2049
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 160
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 7112
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 1044
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 103
+    },
+    {
+      "socketsCount": 2,
+      "gems": [
+        {
+          "cardId": 3274
+        }
+      ],
+      "cardId": 3034
+    },
+    {
+      "socketsCount": 2,
+      "gems": [
+        {
+          "cardId": 205
+        }
+      ],
+      "cardId": 270
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 2009
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 3004
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 3004
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 3013
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 2023
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 91
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 2018
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 3010
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 87
+    },
+    {
+      "socketsCount": 2,
+      "gems": [],
+      "cardId": 219
+    }
+  ],
+  "gems": [
+    {
+      "cardId": 204
+    },
+    {
+      "cardId": 204
+    },
+    {
+      "cardId": 415
+    },
+    {
+      "cardId": 3258
+    }
+  ],
+  "treasures": [
+    {
+      "cardId": 7024
+    },
+    {
+      "cardId": 68
+    },
+    {
+      "cardId": 251
+    },
+    {
+      "cardId": 232
+    },
+    {
+      "cardId": 337
+    }
+  ],
+  "gold": "12301",
+  "brushes": 999,
+  "brushRadius": 2,
+  "generatedTalents": [
+    {
+      "cardId": 97
+    },
+    {
+      "cardId": 264
+    },
+    {
+      "cardId": 263
+    },
+    {
+      "cardId": 262
+    },
+    {
+      "cardId": 265
+    },
+    {
+      "cardId": 6528
+    }
+  ],
+  "talentPicked": [
+    {
+      "cardId": 263
+    }
+  ],
+  "consumables": [
+    {
+      "count": 1,
+      "cardId": 8507
+    },
+    {
+      "count": 3,
+      "cardId": 8510
+    },
+    null
+  ],
+  "activePigment": {
+    "count": 1,
+    "cardId": 8503
+  },
+  "perks": [
+    {
+      "cardId": 10047
+    },
+    {
+      "cardId": 206
+    },
+    {
+      "cardId": 10236
+    },
+    {
+      "cardId": 10237
+    },
+    {
+      "cardId": 10084
+    },
+    {
+      "cardId": 10085
+    },
+    {
+      "cardId": 10011
+    },
+    {
+      "cardId": 10086
+    },
+    {
+      "cardId": 10060
+    },
+    {
+      "cardId": 10074
+    },
+    {
+      "cardId": 10068
+    },
+    {
+      "cardId": 10046
+    },
+    {
+      "cardId": 10003
+    },
+    {
+      "cardId": 155
+    },
+    {
+      "cardId": 10061
+    },
+    {
+      "cardId": 10238
+    },
+    {
+      "cardId": 10087
+    },
+    {
+      "cardId": 10235
+    },
+    {
+      "cardId": 10239
+    },
+    {
+      "cardId": 10002
+    },
+    {
+      "cardId": 10075
+    },
+    {
+      "cardId": 213
+    },
+    {
+      "cardId": 10069
+    },
+    {
+      "cardId": 10070
+    },
+    {
+      "cardId": 10076
+    },
+    {
+      "cardId": 10016
+    },
+    {
+      "cardId": 10008
+    },
+    {
+      "cardId": 10055
+    },
+    {
+      "cardId": 10056
+    },
+    {
+      "cardId": 10057
+    },
+    {
+      "cardId": 10017
+    },
+    {
+      "cardId": 10065
+    },
+    {
+      "cardId": 10066
+    },
+    {
+      "cardId": 10067
+    },
+    {
+      "cardId": 10178
+    },
+    {
+      "cardId": 10179
+    },
+    {
+      "cardId": 10180
+    },
+    {
+      "cardId": 10181
+    },
+    {
+      "cardId": 10182
+    },
+    {
+      "cardId": 10215
+    },
+    {
+      "cardId": 10216
+    },
+    {
+      "cardId": 10217
+    },
+    {
+      "cardId": 10218
+    },
+    {
+      "cardId": 10219
+    },
+    {
+      "cardId": 10141
+    },
+    {
+      "cardId": 10142
+    },
+    {
+      "cardId": 10143
+    },
+    {
+      "cardId": 10144
+    },
+    {
+      "cardId": 10145
+    },
+    {
+      "cardId": 10089
+    },
+    {
+      "cardId": 10090
+    },
+    {
+      "cardId": 10091
+    },
+    {
+      "cardId": 10092
+    },
+    {
+      "cardId": 10093
+    },
+    {
+      "cardId": 10039
+    },
+    {
+      "cardId": 10040
+    },
+    {
+      "cardId": 10114
+    },
+    {
+      "cardId": 10115
+    },
+    {
+      "cardId": 10116
+    },
+    {
+      "cardId": 10117
+    },
+    {
+      "cardId": 10118
+    },
+    {
+      "cardId": 10119
+    },
+    {
+      "cardId": 10120
+    },
+    {
+      "cardId": 10121
+    },
+    {
+      "cardId": 10122
+    },
+    {
+      "cardId": 10037
+    },
+    {
+      "cardId": 10038
+    },
+    {
+      "cardId": 10099
+    },
+    {
+      "cardId": 10100
+    },
+    {
+      "cardId": 10101
+    },
+    {
+      "cardId": 10102
+    },
+    {
+      "cardId": 10103
+    },
+    {
+      "cardId": 10104
+    },
+    {
+      "cardId": 10105
+    },
+    {
+      "cardId": 10106
+    },
+    {
+      "cardId": 10107
+    },
+    {
+      "cardId": 10108
+    },
+    {
+      "cardId": 10123
+    },
+    {
+      "cardId": 10013
+    },
+    {
+      "cardId": 10079
+    },
+    {
+      "cardId": 10080
+    },
+    {
+      "cardId": 10081
+    },
+    {
+      "cardId": 10082
+    },
+    {
+      "cardId": 10083
+    },
+    {
+      "cardId": 10005
+    },
+    {
+      "cardId": 10006
+    },
+    {
+      "cardId": 10007
+    },
+    {
+      "cardId": 10014
+    },
+    {
+      "cardId": 10015
+    },
+    {
+      "cardId": 352
+    },
+    {
+      "cardId": 353
+    },
+    {
+      "cardId": 10088
+    },
+    {
+      "cardId": 10062
+    },
+    {
+      "cardId": 10063
+    },
+    {
+      "cardId": 10064
+    },
+    {
+      "cardId": 351
+    },
+    {
+      "cardId": 10058
+    },
+    {
+      "cardId": 10059
+    },
+    {
+      "cardId": 10018
+    },
+    {
+      "cardId": 10077
+    },
+    {
+      "cardId": 10078
+    },
+    {
+      "cardId": 10009
+    }
+  ],
+  "pages": 5.0,
+  "lastChapterIntroPlayed": 1,
+  "xpGained": 4.0,
+  "fugoroChaseableCharacterData": {
+    "chapter": 3,
+    "tilesToUnlock": 13,
+    "seed": 140446712
+  },
+  "apexChaseableCharacterData": {
+    "chapter": 2,
+    "tilesToUnlock": 25,
+    "seed": 1411567541
+  },
+  "currentRunChallenges": [
+    1,
+    2,
+    3
+  ],
+  "globalStatuses": [],
+  "battlesWonCount": 2,
+  "firstMasterSeed": 1644239040,
+  "masterSeed": 1644251043,
+  "mapSeeds": [
+    1012168667,
+    1772531617,
+    333421912
+  ],
+  "missionHistory": [
+    8,
+    9000,
+    9000,
+    9000,
+    2
+  ],
+  "storiesDone": [
+    23,
+    25,
+    37
+  ],
+  "narrativeTags": [],
+  "environmentType": "OVERWORLD",
+  "gameVersion": "1.9.0",
+  "itemsToDrop": []
+}

@@ -1,0 +1,173 @@
+﻿<Window x:Class="RoguebookSaveEdit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoguebookSaveEdit" xmlns:runs="clr-namespace:Abrakam.Data.Runs" d:DataContext="{d:DesignInstance Type=runs:run}"
+        mc:Ignorable="d"
+        Loaded="MainWindow_OnLoaded"
+        Title="MainWindow" Height="449" Width="750">
+    <Window.Resources >
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+    <Grid   Name="MainGrid"  ShowGridLines="True">
+        <TabControl SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="载入">
+                <Grid >
+                    <Label Content="存档默认路径:AppData\LocalLow\Abrakam Entertainment SA\Roguebook\Saves " HorizontalAlignment="Left" Margin="28,37,0,0" VerticalAlignment="Top"/>
+                    <Button Content="载入默认运行存档" HorizontalAlignment="Left"  Margin="28,75,0,0" VerticalAlignment="Top" Background="#FFE66013" Foreground="White" Padding="5,5,5,5" Click="Button_Click" >
+
+                    </Button>
+                    <Button Content="保存存档" 
+                            Visibility="{Binding IsLoad}"
+                            
+                            HorizontalAlignment="Left"  Margin="307,75,0,0" VerticalAlignment="Top" Background="#FFE66013" Foreground="White" Padding="5,5,5,5" Click="Button_Click_1" />
+                    <Label Content="未载入存档文件..."  Name="LoadInfoTxt" HorizontalAlignment="Left" Margin="28,126,0,0" VerticalAlignment="Top" Foreground="#FF3F6593"/>
+                    <Button Content="手工选择存档位置" HorizontalAlignment="Left"  Margin="169,75,0,0" VerticalAlignment="Top" Background="#FFE66013" Foreground="White" Padding="5,5,5,5" Click="Button_Click_2" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="游戏数据"  
+                     Visibility="{Binding IsLoad}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="57*"/>
+                        <ColumnDefinition Width="190.769"/>
+                        <ColumnDefinition Width="57*"/>
+                        <ColumnDefinition Width="191*"/>
+                        <ColumnDefinition Width="57*"/>
+                        <ColumnDefinition Width="191*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="90*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="150*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="金币" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="40"/>
+                    <TextBox HorizontalAlignment="Left"   Text="{Binding Path= gold}" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" TextAlignment="Left" Height="18" Grid.ColumnSpan="2" Margin="57,0,0,0"/>
+                    <Label Content="笔刷数量" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="1" Height="25" Width="58"/>
+                    <TextBox HorizontalAlignment="Left"    Text="{Binding Path=brushes}"  TextWrapping="Wrap" VerticalAlignment="Center" Width="120" TextAlignment="Left" Height="18" Grid.Row="1" Grid.ColumnSpan="2" Margin="57,0,0,0"/>
+                    <Label Content="笔刷宽度" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="2" Width="58"/>
+                    <TextBox Grid.Column="2" HorizontalAlignment="Left"   Text="{Binding Path= brushRadius}"  TextWrapping="Wrap" VerticalAlignment="Center" Width="120" TextAlignment="Left" Height="18" Grid.Row="1" Grid.ColumnSpan="2" Margin="57,0,0,0"/>
+                    <Label Content="活性颜料" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="4" Width="58"/>
+                    <ComboBox  Name="activePigment" Grid.Column="4"    SelectedItem="{Binding  Path= activePigment}"  HorizontalAlignment="Left"   VerticalAlignment="Center" Grid.Row="1"  Width="120" Grid.ColumnSpan="2" Margin="57,0,0,0">
+
+                    </ComboBox>
+                    <Label Content="消耗品:" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="2" Height="25" Width="58"/>
+                    <Label Content="宝石:" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="4" Height="25" Width="58"/>
+
+                    <DataGrid Grid.Row="3"  Name="Consumables"   ItemsSource ="{Binding consumablesNoNull}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="6">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="物品数量" Binding="{Binding count}"/>
+                            <DataGridTextColumn Header="物品名称" Binding="{Binding name}"/>
+                            <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    <Button Content="添加消耗品" Grid.Column="5" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="95" Click="Button_Click_3" />
+
+                    <Button Content="添加宝石" Grid.Column="5" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Width="95"  />
+                    <DataGrid Grid.Row="5"  Name="gems"   ItemsSource ="{Binding  gems}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="6">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="宝石名称" Binding="{Binding name}"/>
+                            <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="卡片" 
+                     Visibility="{Binding IsLoad}">
+                <DataGrid  x:Name="cards"   ItemsSource ="{Binding cards}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+                        <DataGridTextColumn Header="卡槽数" Binding="{Binding socketsCount}"/>
+                        <DataGridTextColumn Header="卡片名称" Binding="{Binding name}"/>
+                        <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="副官"
+                     Visibility="{Binding IsLoad}">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15*"/>
+                        <ColumnDefinition Width="60*"/>
+                        <ColumnDefinition Width="15*"/>
+                        <ColumnDefinition Width="60*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="150*"/>
+                        <RowDefinition Height="150*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="第一副官" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding heroes[0].name}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Content="第二副官" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="2"/>
+                    <Label Grid.Column="3" Content="{Binding heroes[1].name}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Content="最大生命值" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
+                    <Label Content="最大生命值" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" Text="{Binding heroes[0].maxLife}" Width="120"  VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" Text="{Binding heroes[1].maxLife}" Width="120"  VerticalAlignment="Center"/>
+                    <Label Content="当前生命值" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="2" Grid.Row="2"/>
+                    <Label Content="当前生命值" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" Text="{Binding heroes[0].currentLife}" Width="120"  VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" Text="{Binding heroes[1].currentLife}"  Width="120" VerticalAlignment="Center"/>
+                    <Label Content="愤怒值" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="2" Grid.Row="3"/>
+                    <Label Content="愤怒值" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" Text="{Binding heroes[0].rage}"  Width="120" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" Text="{Binding heroes[1].rage}"  Width="120" VerticalAlignment="Center"/>
+                    <Label Content="额外力量" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
+                    <Label Content="额外力量" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="{Binding heroes[0].bonusPower}" Width="120"  VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="{Binding heroes[1].bonusPower}" Width="120"  VerticalAlignment="Center"/>
+
+
+
+                    <DataGrid  x:Name="treasure1"    Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource ="{Binding heroes[0].treasure}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+                            <DataGridTextColumn Header="宝物名称" Binding="{Binding name}"/>
+                            <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid  x:Name="treasure2"    Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource ="{Binding heroes[1].treasure}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+                            <DataGridTextColumn Header="宝物名称" Binding="{Binding name}"/>
+                            <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    <DataGrid  x:Name="treasure"    Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" ItemsSource ="{Binding treasures  }" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+                            <DataGridTextColumn Header="宝物名称" Binding="{Binding name}"/>
+                            <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+</Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

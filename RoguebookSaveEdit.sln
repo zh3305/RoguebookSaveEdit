@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoguebookSaveEdit", "RoguebookSaveEdit\RoguebookSaveEdit.csproj", "{0AED9A01-D3AA-46C6-A0A7-CBC769B10F4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AED9A01-D3AA-46C6-A0A7-CBC769B10F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AED9A01-D3AA-46C6-A0A7-CBC769B10F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AED9A01-D3AA-46C6-A0A7-CBC769B10F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AED9A01-D3AA-46C6-A0A7-CBC769B10F4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF785237-DA5B-4BC4-939C-39C7A64FA5CE}
+	EndGlobalSection
+EndGlobal
