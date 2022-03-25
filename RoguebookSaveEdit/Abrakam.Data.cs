@@ -21,7 +21,7 @@ namespace Abrakam.Data.Runs
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             propertyName ??= new StackTrace().GetFrame(1)?.GetMethod()?.Name.Substring(4);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -36,11 +36,11 @@ namespace Abrakam.Data.Runs
         private int _battlesWonCount;
         private string _gameVersion;
         private heroe[] _heroes = { };
-        private card[] _cards = { };
-        private baseCard[] _gems = { };
+        private List<card> _cards = new();
+        private List<baseCard> _gems = new();
         private consumable[] _consumables = { };
         private consumable _activePigment ;
-        private baseCard[] _treasures = { };
+        private List<baseCard> _treasures = new();
 
         [JsonIgnore]
         public Visibility IsLoad
@@ -99,7 +99,7 @@ namespace Abrakam.Data.Runs
         /// <summary>
         /// 卡片数据
         /// </summary>
-        public card[] cards
+        public List<card> cards
         {
             get => _cards;
             set { _cards = value;  OnPropertyChanged(); }
@@ -108,7 +108,7 @@ namespace Abrakam.Data.Runs
         /// <summary>
         /// 宝石列表
         /// </summary>
-        public baseCard[] gems
+        public List<baseCard>  gems
         {
             get => _gems;
             set { _gems = value; ; OnPropertyChanged(); }
@@ -116,7 +116,7 @@ namespace Abrakam.Data.Runs
         /// <summary>
         /// 公用宝物
         /// </summary>
-     public baseCard[] treasures
+     public List<baseCard >treasures
         {
             get => _treasures;
             set { _treasures = value; ; OnPropertyChanged(); }
@@ -198,9 +198,9 @@ namespace Abrakam.Data.Runs
         private int _currentLife;
         private int _rage;
         private int _bonusPower;
-        private baseCard[] _treasure = { };
-        private baseCard[] _talents={};
-        private baseCard[] _generatedTalents = { };
+        private List<baseCard> _treasure=new();
+        private List<baseCard> _talents =new();
+        private List<baseCard> _generatedTalents =new();
 
         public int id
         {
@@ -223,10 +223,28 @@ namespace Abrakam.Data.Runs
                     6002 => "奥罗拉",
                     6000 => "Sharra, Dragonslayer",
                     6003 => "Seifer, Blood Tyrant",
+                    6004 => "FUGORO",
                     _ => "其他英雄：" + id
                 };
             }
         }
+        [JsonIgnore]
+        public string En_name
+        {
+            get
+            {
+                return id switch
+                {
+                    6000 => "SHARRA",
+                    6001 => "SOROCCO",
+                    6002 => "AURORA",
+                    6003 => "SEIFER",
+                    6004 => "FUGORO",
+                    _ => "其他英雄：" + id
+                };
+            }
+        }
+
 
         /// <summary>
         /// 位置
@@ -278,7 +296,7 @@ namespace Abrakam.Data.Runs
         /// 宝物列表
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public baseCard[] treasure
+        public List<baseCard> treasure
         {
             get => _treasure;
             set { _treasure = value;  OnPropertyChanged(); }
@@ -288,7 +306,7 @@ namespace Abrakam.Data.Runs
         /// 天赋
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public baseCard[] talents
+        public List<baseCard> talents
         {
             get => _talents;
             set
@@ -303,7 +321,7 @@ namespace Abrakam.Data.Runs
         /// </summary>
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public baseCard[] generatedTalents
+        public List<baseCard> generatedTalents
         {
             get => _generatedTalents;
             set { _generatedTalents = value; OnPropertyChanged(); }
@@ -341,9 +359,8 @@ namespace Abrakam.Data.Runs
             }
         
         }
-
-
-
+        [JsonIgnore]
+        public string heroType { get; set; }
     }
 
     public enum EnvironmentType

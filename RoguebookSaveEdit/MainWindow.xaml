@@ -52,13 +52,11 @@
                     <Label Content="笔刷宽度" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="2" Width="58"/>
                     <TextBox Grid.Column="2" HorizontalAlignment="Left"   Text="{Binding Path= brushRadius}"  TextWrapping="Wrap" VerticalAlignment="Center" Width="120" TextAlignment="Left" Height="18" Grid.Row="1" Grid.ColumnSpan="2" Margin="57,0,0,0"/>
                     <Label Content="活性颜料" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="4" Width="58"/>
-                    <ComboBox  Name="activePigment" Grid.Column="4"    SelectedItem="{Binding  Path= activePigment}"  HorizontalAlignment="Left"   VerticalAlignment="Center" Grid.Row="1"  Width="120" Grid.ColumnSpan="2" Margin="57,0,0,0">
-
-                    </ComboBox>
+                    <ComboBox  Name="activePigment" Grid.Column="4"    SelectedItem="{Binding  Path= activePigment}"  HorizontalAlignment="Left"   VerticalAlignment="Center" Grid.Row="1"  Width="120" Grid.ColumnSpan="2" Margin="57,0,0,0" IsReadOnly="True"/>
                     <Label Content="消耗品:" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="2" Height="25" Width="58"/>
                     <Label Content="宝石:" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="4" Height="25" Width="58"/>
 
-                    <DataGrid Grid.Row="3"  Name="Consumables"   ItemsSource ="{Binding consumablesNoNull}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="6">
+                    <DataGrid Grid.Row="3"  Name="Consumables"   ItemsSource ="{Binding consumablesNoNull}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="True" Grid.ColumnSpan="6">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="物品数量" Binding="{Binding count}"/>
                             <DataGridTextColumn Header="物品名称" Binding="{Binding name}"/>
@@ -68,14 +66,15 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
-                    <Button Content="添加消耗品" Grid.Column="5" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="95" Click="Button_Click_3" />
+                    <Button Content="添加消耗品" Grid.Column="5" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="95" Click="Button_Click_3" IsEnabled="False" />
 
-                    <Button Content="添加宝石" Grid.Column="5" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Width="95"  />
-                    <DataGrid Grid.Row="5"  Name="gems"   ItemsSource ="{Binding  gems}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="6">
+                    <Button Content="添加宝石" Grid.Column="5" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Width="95" Click="Addgems_Click"  />
+                    <DataGrid Grid.Row="5"  Name="gems"   ItemsSource ="{Binding  gems}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="True" Grid.ColumnSpan="6">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="宝石名称" Binding="{Binding name}"/>
                             <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
                             <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+                            <DataGridTextColumn Header="专属类型" Binding="{Binding  heroType}"/>
 
                         </DataGrid.Columns>
 
@@ -84,16 +83,21 @@
             </TabItem>
             <TabItem Header="卡片" 
                      Visibility="{Binding IsLoad}">
-                <DataGrid  x:Name="cards"   ItemsSource ="{Binding cards}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
-                        <DataGridTextColumn Header="卡槽数" Binding="{Binding socketsCount}"/>
-                        <DataGridTextColumn Header="卡片名称" Binding="{Binding name}"/>
-                        <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+                <Grid>
 
-                    </DataGrid.Columns>
+                    <Button Content="添加卡片" VerticalAlignment="Top" HorizontalAlignment="Right" Width="95"  Click="AddCard_Click"  Margin="0,2,10,0" Panel.ZIndex="90"  />
+                    <DataGrid  x:Name="usercards"   ItemsSource ="{Binding cards}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="卡槽数" Binding="{Binding socketsCount}"/>
+                            <DataGridTextColumn Header="卡片名称" Binding="{Binding name}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="描述" Binding="{Binding text}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="专属类型" Binding="{Binding  heroType}"/>
 
-                </DataGrid>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="副官"
                      Visibility="{Binding IsLoad}">
@@ -134,38 +138,43 @@
                     <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="{Binding heroes[0].bonusPower}" Width="120"  VerticalAlignment="Center"/>
                     <TextBox Grid.Column="3" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="{Binding heroes[1].bonusPower}" Width="120"  VerticalAlignment="Center"/>
 
+                    <Button Content="添加宝物" VerticalAlignment="Top" HorizontalAlignment="Right" Width="95"  Click="Addtreasure1_Click" Margin="0,3,10,0" Panel.ZIndex="90" Grid.Column="1" Grid.Row="5" RenderTransformOrigin="0.548,0.553"  />
 
-
-                    <DataGrid  x:Name="treasure1"    Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource ="{Binding heroes[0].treasure}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid  x:Name="treasure1"    Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource ="{Binding heroes[0].treasure}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
                             <DataGridTextColumn Header="宝物名称" Binding="{Binding name}"/>
                             <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+                            <DataGridTextColumn Header="专属类型" Binding="{Binding  heroType}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    <Button Content="添加宝物" VerticalAlignment="Top" HorizontalAlignment="Right" Width="95"  Click="Addtreasure2_Click" Margin="0,3,10,0" Panel.ZIndex="90" Grid.Column="3" Grid.Row="5" RenderTransformOrigin="0.548,0.553"  />
+
+                      <DataGrid  x:Name="treasure2"    Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource ="{Binding heroes[1].treasure}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+                            <DataGridTextColumn Header="宝物名称" Binding="{Binding name}"/>
+                            <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+                            <DataGridTextColumn Header="专属类型" Binding="{Binding  heroType}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    <Button Content="添加宝物" VerticalAlignment="Top" HorizontalAlignment="Right" Width="95"  Click="Addtreasure_Click" Margin="0,3,0,0" Panel.ZIndex="90" Grid.Column="3" Grid.Row="6" RenderTransformOrigin="0.548,0.553"  />
+                    <DataGrid  x:Name="treasure"    Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" ItemsSource ="{Binding treasures  }" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+                            <DataGridTextColumn Header="宝物名称" Binding="{Binding name}"/>
+                            <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
+                            <DataGridTextColumn Header="专属类型" Binding="{Binding  heroType}"/>
 
                         </DataGrid.Columns>
 
                     </DataGrid>
 
-                    <DataGrid  x:Name="treasure2"    Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource ="{Binding heroes[1].treasure}" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
-                            <DataGridTextColumn Header="宝物名称" Binding="{Binding name}"/>
-                            <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
-
-                        </DataGrid.Columns>
-
-                    </DataGrid>
-                    <DataGrid  x:Name="treasure"    Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" ItemsSource ="{Binding treasures  }" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
-                            <DataGridTextColumn Header="宝物名称" Binding="{Binding name}"/>
-                            <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
-
-                        </DataGrid.Columns>
-
-                    </DataGrid>
-
-</Grid>
+                </Grid>
             </TabItem>
         </TabControl>
 

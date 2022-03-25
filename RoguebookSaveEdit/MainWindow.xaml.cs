@@ -31,16 +31,29 @@ namespace RoguebookSaveEdit
 {
 
 
-    public class CardData: baseCard
+    public class CardData : baseCard
     {
         public string orderId { get; set; }
         public string heroType { get; set; }
-        public string name { get; set; }
+
+        /**
+status
+event
+ally
+creature
+talent
+gem
+treasure
+perk
+positionStatus
+hero
+consumable
+globalStatus
+tournamentSeal
+         */
         public string type { get; set; }
         public string faeria { get; set; }
-        public string text { get; set; }
         public string scope { get; set; }
-        public string rarity { get; set; }
         public string price { get; set; }
         public string tags { get; set; }
         // public string name_cn { get; set; }
@@ -52,11 +65,14 @@ namespace RoguebookSaveEdit
     /// </summary>
     public partial class MainWindow : Window
     {
+        //语言文件位于资源文件Cards 中
         public const string GameDataConn = "data source=gamedata.db";
 
 
-
-        List<CardData> CardDatas;
+        /// <summary>
+        /// 缓存卡片数据列表
+        /// </summary>
+        public static List<CardData> CardDatas;
 
         public MainWindow()
         {
@@ -79,15 +95,15 @@ SELECT
 	cards.rarity, 
 	cards.price, 
 	cards.tags, 
-	cards.name_cn `name`, 
-	cards.text_cn text
+	IFNULL(cards.name_cn , name)	`name`, 
+	IFNULL(cards.text_cn , text)	 text
 FROM
 	cards", new DynamicParameters()).ToList();
             }
 
             //颜料下拉列表
-            var activePigmentItems = CardDatas.Where(t =>new [] { 8503,8508 }.Contains(t.cardId))
-                .Select(t=>new consumable
+            var activePigmentItems = CardDatas.Where(t => new[] { 8503, 8508 }.Contains(t.cardId))
+                .Select(t => new consumable
                 {
                     cardId = t.cardId,
                     count = 1,
@@ -105,17 +121,17 @@ FROM
         }
         string runjsonfilepath;
 
-        run runConfig = new run();//初始化避免绑定出错
+        run _runConfig = new run();//初始化避免绑定出错
 
-        private static string ApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow");
+        private static readonly string ApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow");
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-//#if DEBUG
-//            var path = Path.Combine(System.Environment.CurrentDirectory, @"");
-//#else
+            //#if DEBUG
+            //            var path = Path.Combine(System.Environment.CurrentDirectory, @"");
+            //#else
             var path = Path.Combine(ApplicationData, @"Abrakam Entertainment SA\Roguebook\Saves\");
 
-//#endif
+            //#endif
 
             if (!Directory.Exists(path))
             {
@@ -128,7 +144,7 @@ FROM
                     return;
                 }
                 runjsonfilepath = "";
-                runConfig.id = null;
+                _runConfig.id = null;
                 LoadInfoTxt.Content = "未载入存档...";
             }
 
@@ -158,22 +174,22 @@ FROM
         private void loadRunConfig(string runjisnpath)
         {
             runjsonfilepath = runjisnpath;
-            runConfig = LoadSettings(runjsonfilepath).Get<run>();
+            _runConfig = LoadSettings(runjsonfilepath).Get<run>();
 
             //添加名称
-            BandCardName(runConfig.consumables);//消耗品
-            BandCardName(runConfig.gems);//宝石
-            BandCardName(runConfig.cards);//卡牌
-            BandCardName(runConfig.heroes[0].treasure);//宝物
-            BandCardName(runConfig.heroes[1].treasure);//宝物
-            BandCardName(runConfig.treasures);//宝物
+            BandCardName(_runConfig.consumables);//消耗品
+            BandCardName(_runConfig.gems);//宝石
+            BandCardName(_runConfig.cards.Cast<baseCard>().ToList());//卡牌
+            BandCardName(_runConfig.heroes[0].treasure);//宝物
+            BandCardName(_runConfig.heroes[1].treasure);//宝物
+            BandCardName(_runConfig.treasures);//宝物
 
-            LoadInfoTxt.Content = "已载入存档" + runConfig.id + "\r\n游戏版本：" + runConfig.gameVersion;
-            MainGrid.DataContext = runConfig;
+            LoadInfoTxt.Content = "已载入存档" + _runConfig.id + "\r\n游戏版本：" + _runConfig.gameVersion;
+            MainGrid.DataContext = _runConfig;
         }
 
         //绑定翻译记录
-        private void BandCardName( IList<baseCard> cards)
+        private void BandCardName(IList<baseCard> cards)
         {
             foreach (var runConfigConsumable in cards)
             {
@@ -183,7 +199,8 @@ FROM
                     runConfigConsumable.name = trdata.name;
 
                     runConfigConsumable.text = trdata.text;
-                    runConfigConsumable.rarity= trdata.rarity;
+                    runConfigConsumable.rarity = trdata.rarity;
+                    runConfigConsumable.heroType = trdata.heroType;
                 }
             }
         }
@@ -203,8 +220,8 @@ FROM
         {
             if (!string.IsNullOrEmpty(runjsonfilepath))
             {
-                SaveConfiguration(runConfig);
-                LoadInfoTxt.Content = "已保存存档" + runConfig.id + "\r\n游戏版本：" + runConfig.gameVersion;
+                SaveConfiguration(_runConfig);
+                LoadInfoTxt.Content = DateTime.Now.Ticks + "已保存存档" + _runConfig.id + "\r\n游戏版本：" + _runConfig.gameVersion;
             }
 
         }
@@ -250,14 +267,17 @@ FROM
             //输出文件
             System.IO.File.WriteAllText(appSettingsJsonFilePath, output);
             //备份原始文件
-            System.IO.File.WriteAllText(appSettingsJsonFilePath+".back", json);
+            System.IO.File.WriteAllText(appSettingsJsonFilePath + ".back", json);
         }
+
+        private static readonly string[] ReplacePropertyNames = new string[] { "treasure", "talents", "generatedTalents", "gems", "cards" };
         //更新json对象
         private static void UpdataJobject(JToken fromObject, JObject jsonObj)
         {
             foreach (var child in fromObject.Children())
             {
-                if (child.Children().Any())
+
+                if (!ReplacePropertyNames.Contains(child.Path.Split(".").Last()) && child.Children().Any())
                 {
                     UpdataJobject(child, jsonObj);
                 }
@@ -291,7 +311,7 @@ FROM
         //添加消耗品
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            if (runConfig.consumablesNoNull.Length>=3)
+            if (_runConfig.consumablesNoNull.Length >= 3)
             {
                 MessageBox.Show("消耗品只能存放3个,请删除后在添加!");
                 return;
@@ -299,6 +319,93 @@ FROM
 
 
 
+        }
+        //添加宝石
+        private void Addgems_Click(object sender, RoutedEventArgs e)
+        {
+            if (_runConfig.gems.Count >= 6)
+            {
+                MessageBox.Show("宝石只能存放6个,请删除后在添加!");
+                return;
+            }
+            var showGetData = new AddCardWindows(CardDatas.Where(t => t.type == "gem").ToList())
+                .ShowGetData();
+            if (showGetData != null)
+            {
+                _runConfig.gems.Add(showGetData);
+                CollectionViewSource.GetDefaultView(gems.ItemsSource).Refresh();
+            }
+        }
+
+        private void AddCard_Click(object sender, RoutedEventArgs e)
+        {
+            var herostypes = new[] { _runConfig.heroes[1].En_name, _runConfig.heroes[0].En_name };
+
+            var showGetData = new AddCardWindows(CardDatas.Where(t => t.type == "event" &&
+                                                                      herostypes
+                                                                          .Contains(t.heroType)).ToList())
+                .ShowGetData();
+            if (showGetData != null)
+            {
+                _runConfig.cards.Add(new card
+                {
+                    cardId = showGetData.cardId,
+                    name = showGetData.name,
+                    text = showGetData.text,
+                    rarity = showGetData.rarity,
+                    socketsCount = 2,
+                    gems = new baseCard[]
+                    {
+                    }
+                });
+                CollectionViewSource.GetDefaultView(usercards.ItemsSource).Refresh();
+            }
+
+        }
+
+        private void Addtreasure1_Click(object sender, RoutedEventArgs e)
+        {
+            var herostypes = new[] { "ASSIGNABLE", _runConfig.heroes[0].En_name };
+            var showGetData = new AddCardWindows(CardDatas.Where(t => t.type == "treasure" &&
+                                                                      herostypes
+                                                                          .Contains(t.heroType)).ToList())
+                .ShowGetData();
+            if (showGetData != null)
+            {
+                _runConfig.heroes[0].treasure.Add(showGetData);
+                CollectionViewSource.GetDefaultView(treasure1.ItemsSource).Refresh();
+            }
+
+
+        }
+
+        private void Addtreasure2_Click(object sender, RoutedEventArgs e)
+        {
+            var herostypes = new[] { "ASSIGNABLE", _runConfig.heroes[1].En_name };
+            var showGetData = new AddCardWindows(CardDatas.Where(t => t.type == "treasure" &&
+                                                                      herostypes
+                                                                          .Contains(t.heroType)).ToList())
+                .ShowGetData();
+            if (showGetData != null)
+            {
+                _runConfig.heroes[1].treasure.Add(showGetData);
+                CollectionViewSource.GetDefaultView(treasure2.ItemsSource).Refresh();
+            }
+
+        }
+
+        private void Addtreasure_Click(object sender, RoutedEventArgs e)
+        {
+            var herostypes = new[] { "NEUTRAL"};
+            var showGetData = new AddCardWindows(CardDatas.Where(t => t.type == "treasure" &&
+                                                                      herostypes
+                                                                          .Contains(t.heroType)).ToList())
+                .ShowGetData();
+            if (showGetData != null)
+            {
+                _runConfig.treasures.Add(showGetData);
+                CollectionViewSource.GetDefaultView(treasure.ItemsSource).Refresh();
+            }
         }
     }
 }
