@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Abrakam.Data.Runs;
+using RoguebookSaveEdit.model;
 
 namespace RoguebookSaveEdit
 {
@@ -63,8 +64,8 @@ namespace RoguebookSaveEdit
             return new baseCard
             {
                 cardId = selectdata.cardId,
-                name = selectdata.name,
-                text = selectdata.text,
+                // name = selectdata.name,
+                // text = selectdata.text,
                 rarity = selectdata.rarity,
             };
         }

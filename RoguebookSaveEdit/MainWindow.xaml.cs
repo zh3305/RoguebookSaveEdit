@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -25,41 +26,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using RoguebookSaveEdit.model;
 using Path = System.IO.Path;
 
 namespace RoguebookSaveEdit
 {
-
-
-    public class CardData : baseCard
-    {
-        public string orderId { get; set; }
-        public string heroType { get; set; }
-
-        /**
-status
-event
-ally
-creature
-talent
-gem
-treasure
-perk
-positionStatus
-hero
-consumable
-globalStatus
-tournamentSeal
-         */
-        public string type { get; set; }
-        public string faeria { get; set; }
-        public string scope { get; set; }
-        public string price { get; set; }
-        public string tags { get; set; }
-        // public string name_cn { get; set; }
-        // public string text_cn { get; set; }
-    }
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -80,26 +51,46 @@ tournamentSeal
         }
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+
+
+            //加载多语言
+            //来源 Assets/Abrakam/Data/Texts/simplified_chinese/cards.csv
+            Const.Localizations = File.ReadAllLines("TextAsset\\cards.csv")
+                .Select(line => line.Split(';'))
+                .Select(t => new CardLocalization
+                {
+                    id = t[0],
+                    en = t[1],
+                    translation = t[2]
+
+                }).ToArray();
             //加载卡片数据
-            using (IDbConnection cnn = new SqliteConnection(GameDataConn))
+            //             using (IDbConnection cnn = new SqliteConnection(GameDataConn))
+            //             {
+            //                 cnn.Open();
+            //                 CardDatas = cnn.Query<CardData>($@"
+            // SELECT
+            // 	cards.cardId, 
+            // 	cards.orderId, 
+            // 	cards.heroType, 
+            // 	cards.type, 
+            // 	cards.faeria, 
+            // 	cards.scope, 
+            // 	cards.rarity, 
+            // 	cards.price, 
+            // 	cards.tags, 
+            // 	IFNULL(cards.name_cn , name)	`name`, 
+            // 	IFNULL(cards.text_cn , text)	 text
+            // FROM
+            // 	cards", new DynamicParameters()).ToList();
+            // }\
+            //来源 Roguebook\Roguebook_Data\StreamingAssets\GameBoxResources
+            using (StreamReader r = new StreamReader("TextAsset\\cards.json"))
             {
-                cnn.Open();
-                CardDatas = cnn.Query<CardData>($@"
-SELECT
-	cards.cardId, 
-	cards.orderId, 
-	cards.heroType, 
-	cards.type, 
-	cards.faeria, 
-	cards.scope, 
-	cards.rarity, 
-	cards.price, 
-	cards.tags, 
-	IFNULL(cards.name_cn , name)	`name`, 
-	IFNULL(cards.text_cn , text)	 text
-FROM
-	cards", new DynamicParameters()).ToList();
+                //File.ReadAllText("TextAsset\\cards.json"")
+                CardDatas = JsonConvert.DeserializeObject<List<CardData>>(r.ReadToEnd());
             }
+     
 
             //颜料下拉列表
             var activePigmentItems = CardDatas.Where(t => new[] { 8503, 8508 }.Contains(t.cardId))
@@ -107,8 +98,8 @@ FROM
                 {
                     cardId = t.cardId,
                     count = 1,
-                    name = t.name,
-                    text = t.text
+                    // name = t.name,
+                    // text = t.text
 
                 })
                 .ToList();
@@ -174,10 +165,13 @@ FROM
         private void loadRunConfig(string runjisnpath)
         {
             runjsonfilepath = runjisnpath;
-            _runConfig = LoadSettings(runjsonfilepath).Get<run>();
+            // _runConfig = LoadSettings(runjsonfilepath).Get<run>();
+
+
+            _runConfig = JsonConvert.DeserializeObject<run> (File.ReadAllText(runjsonfilepath));
 
             //添加名称
-            BandCardName(_runConfig.consumables);//消耗品
+            BandCardName(_runConfig.consumablesNoNull);//消耗品
             BandCardName(_runConfig.gems);//宝石
             BandCardName(_runConfig.cards.Cast<baseCard>().ToList());//卡牌
             BandCardName(_runConfig.heroes[0].treasure);//宝物
@@ -196,9 +190,8 @@ FROM
                 var trdata = CardDatas.FirstOrDefault(t => t.cardId == runConfigConsumable.cardId);
                 if (trdata != null)
                 {
-                    runConfigConsumable.name = trdata.name;
-
-                    runConfigConsumable.text = trdata.text;
+                    // runConfigConsumable.name = trdata.name;
+                    // runConfigConsumable.text = trdata.text;
                     runConfigConsumable.rarity = trdata.rarity;
                     runConfigConsumable.heroType = trdata.heroType;
                 }
@@ -216,7 +209,7 @@ FROM
         }
 
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(runjsonfilepath))
             {
@@ -270,7 +263,7 @@ FROM
             System.IO.File.WriteAllText(appSettingsJsonFilePath + ".back", json);
         }
 
-        private static readonly string[] ReplacePropertyNames = new string[] { "treasure", "talents", "generatedTalents", "gems", "cards" };
+        private static readonly string[] ReplacePropertyNames = new string[] { "treasure", "treasures", "talents", "generatedTalents", "gems", "cards" };
         //更新json对象
         private static void UpdataJobject(JToken fromObject, JObject jsonObj)
         {
@@ -350,8 +343,8 @@ FROM
                 _runConfig.cards.Add(new card
                 {
                     cardId = showGetData.cardId,
-                    name = showGetData.name,
-                    text = showGetData.text,
+                    // name = showGetData.name,
+                    // text = showGetData.text,
                     rarity = showGetData.rarity,
                     socketsCount = 2,
                     gems = new baseCard[]

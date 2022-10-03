@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:RoguebookSaveEdit"
         Loaded="AddGemsWindows_OnLoaded"
         mc:Ignorable="d"
-        Title="添加物品" Height="275" Width="666">
+        Title="添加物品" Height="290" Width="740">
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="34*"/>
+            <RowDefinition Height="22"/>
+            <RowDefinition Height="22"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

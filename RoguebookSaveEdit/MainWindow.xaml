@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RoguebookSaveEdit" xmlns:runs="clr-namespace:Abrakam.Data.Runs" d:DataContext="{d:DesignInstance Type=runs:run}"
         mc:Ignorable="d"
         Loaded="MainWindow_OnLoaded"
-        Title="MainWindow" Height="449" Width="750">
+        Title="魔域之书 存档修改工具" Height="449" Width="750">
     <Window.Resources >
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
@@ -21,7 +21,7 @@
                     <Button Content="保存存档" 
                             Visibility="{Binding IsLoad}"
                             
-                            HorizontalAlignment="Left"  Margin="307,75,0,0" VerticalAlignment="Top" Background="#FFE66013" Foreground="White" Padding="5,5,5,5" Click="Button_Click_1" />
+                            HorizontalAlignment="Left"  Margin="307,75,0,0" VerticalAlignment="Top" Background="#FFE66013" Foreground="White" Padding="5,5,5,5" Click="Save_Button_Click" />
                     <Label Content="未载入存档文件..."  Name="LoadInfoTxt" HorizontalAlignment="Left" Margin="28,126,0,0" VerticalAlignment="Top" Foreground="#FF3F6593"/>
                     <Button Content="手工选择存档位置" HorizontalAlignment="Left"  Margin="169,75,0,0" VerticalAlignment="Top" Background="#FFE66013" Foreground="White" Padding="5,5,5,5" Click="Button_Click_2" />
                 </Grid>

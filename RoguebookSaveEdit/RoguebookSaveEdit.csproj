@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="gameid_111\**" />
+    <EmbeddedResource Remove="gameid_111\**" />
+    <None Remove="gameid_111\**" />
+    <Page Remove="gameid_111\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="run.json" />
   </ItemGroup>
 
@@ -24,13 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="gameid_111\1\run\run.json">
+    <None Update="TextAsset\cards.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="gamedata.db">
+    </None>
+    <None Update="TextAsset\cards.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
