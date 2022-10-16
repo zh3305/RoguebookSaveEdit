@@ -211,6 +211,11 @@ namespace RoguebookSaveEdit
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (!File.Exists(runjsonfilepath))
+            {
+                MessageBox.Show("请先进入游戏,开门后在保存!");
+                return;
+            }
             if (!string.IsNullOrEmpty(runjsonfilepath))
             {
                 SaveConfiguration(_runConfig);
