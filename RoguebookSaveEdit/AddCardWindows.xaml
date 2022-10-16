@@ -18,12 +18,8 @@
         </Grid.ColumnDefinitions>
         <DataGrid Margin="0,4,0,0"  Name="GamData" AutoGenerateColumns="False" Grid.Row="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="名称" Binding="{Binding name}"/>
-                <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
-                <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
-                <DataGridTextColumn Header="专属类型" Binding="{Binding  heroType}"/>
                 <!--操作-->
-                <DataGridTemplateColumn Header="操作" MinWidth="120">
+                <DataGridTemplateColumn Header="操作" MinWidth="60">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button 
@@ -33,6 +29,10 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
+                <DataGridTextColumn Header="专属类型" Binding="{Binding  heroType}"/>
+                <DataGridTextColumn Header="名称" Binding="{Binding name}"/>
+                <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
 
             </DataGrid.Columns>
         </DataGrid>

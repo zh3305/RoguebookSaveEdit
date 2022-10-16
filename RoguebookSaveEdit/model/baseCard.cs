@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using RoguebookSaveEdit;
+using RoguebookSaveEdit.model;
 
 namespace Abrakam.Data.Runs
 {
@@ -54,7 +56,7 @@ namespace Abrakam.Data.Runs
                                           return "力量";
                                       // "dynamic_number" => "",
                                       case "ally":
-                                          return "盟友";  
+                                          return "盟友";
                                       case "retain":
                                           return "保留";
                                       case "ranged":
@@ -96,12 +98,12 @@ namespace Abrakam.Data.Runs
                                   }
                                   break;
                               case 2:
-                              {
-                                  string prefix ;
+                                  {
+                                      string prefix;
                                       switch (strings[0])
                                       {
                                           case "life":
-                                              prefix= "生命";
+                                              prefix = "生命";
                                               break;
                                           case "power":
                                               prefix = "力量";
@@ -116,9 +118,9 @@ namespace Abrakam.Data.Runs
                                               prefix = "流血";
                                               break;
                                           case "refer":
-                                              return "["+( Const.Localizations?.FirstOrDefault(t =>
-                                                  t.id == $"{int.Parse(strings[1]):D5}_CARD_NAME").translation ?? ("引用牌:"+ strings[1]))+"]";
-                                           
+                                              return "[" + (Const.Localizations?.FirstOrDefault(t =>
+                                                  t.id == $"{int.Parse(strings[1]):D5}_CARD_NAME").translation ?? ("引用牌:" + strings[1])) + "]";
+
                                           case "deckSize"://对战时计算的状态值
                                           case "soroccoPower":
                                           case "reviveCounter":
@@ -128,15 +130,15 @@ namespace Abrakam.Data.Runs
                                               break;
 
                                           default:
-                                              Console.WriteLine("prefix :"+ strings[0]);
-                                              return strings[0]+"|" + strings[1];
+                                              Console.WriteLine("prefix :" + strings[0]);
+                                              return strings[0] + "|" + strings[1];
                                       }
                                       return strings[1] + prefix;
                                   }
                                   break;
                           }
 
-                          Console.WriteLine("lost:"+placeholders);
+                          Console.WriteLine("lost:" + placeholders);
                           return placeholders;
                       })
                       ?? _text;
@@ -144,24 +146,12 @@ namespace Abrakam.Data.Runs
             set { _text = value; }
         }
 
-        public string rarity { internal get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Raritys rarity { internal get; set; }
 
         [JsonIgnore]
-        public string rarityName
-        {
-            get
-            {
-                return rarity switch
-                {
-                    "COMMON" => "普通",
-                    "RARE" => "稀有",
-                    "EPIC" => "史诗",
-                    "LEGENDARY" => "传奇",
-                    _ => ""
-                };
-            }
+        public string rarityName => rarity.ToDescriptionString();
 
-        }
         public string heroType { internal get; set; }
     }
 }

@@ -76,7 +76,7 @@ namespace RoguebookSaveEdit
             // 	cards.type, 
             // 	cards.faeria, 
             // 	cards.scope, 
-            // 	cards.rarity, 
+            // 	cards.raritys, 
             // 	cards.price, 
             // 	cards.tags, 
             // 	IFNULL(cards.name_cn , name)	`name`, 

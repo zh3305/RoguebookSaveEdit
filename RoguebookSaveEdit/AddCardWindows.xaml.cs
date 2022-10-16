@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Abrakam.Data.Runs;
+using Newtonsoft.Json.Linq;
 using RoguebookSaveEdit.model;
 
 namespace RoguebookSaveEdit
@@ -39,8 +40,9 @@ namespace RoguebookSaveEdit
 
 
             GamData.ItemsSource = _cardDatas.AsEnumerable()
-                    .WhereIf(!string.IsNullOrEmpty(rainity), t => t.rarity == rainity)
+                    .WhereIf(!string.IsNullOrEmpty(rainity), t => Enum.GetName(typeof(Raritys), t.rarity) == rainity)
                     .WhereIf(!string.IsNullOrEmpty(NameFilter.Text), t => t.name.Contains(NameFilter.Text))
+                    .OrderByDescending(t => t.rarity)
                     .ToList()
                 ;
 
