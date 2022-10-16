@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RoguebookSaveEdit" xmlns:runs="clr-namespace:Abrakam.Data.Runs" d:DataContext="{d:DesignInstance Type=runs:run}"
         mc:Ignorable="d"
         Loaded="MainWindow_OnLoaded"
+        WindowStartupLocation="CenterScreen"
         Title="魔域之书 存档修改工具" Height="449" Width="750">
     <Window.Resources >
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
