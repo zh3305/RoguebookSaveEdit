@@ -25,7 +25,7 @@ namespace Abrakam.Data.Runs
         {
             get
             {
-                return string.IsNullOrEmpty(id) ?  Visibility.Hidden: Visibility.Visible ;
+                return string.IsNullOrEmpty(id) ?  Visibility.Collapsed : Visibility.Visible ;
             }
         }
         // public bool IsLoad => !string.IsNullOrEmpty(id);

@@ -92,6 +92,12 @@ namespace Abrakam.Data.Runs
                                           return "一闪";
                                       case "swap":
                                           return "交换";
+                                      case "aggressive":
+                                          return "挑衅";
+                                      case "stacks":
+                                          return "层叠";
+                                      case "brute":
+                                          return "爆者";
                                       default:
                                           Console.WriteLine(strings[0]);
                                           return strings[0];
@@ -116,6 +122,24 @@ namespace Abrakam.Data.Runs
                                               break;
                                           case "bleed":
                                               prefix = "流血";
+                                              break;
+                                          case "frogs":
+                                              prefix = "青蛙数量";
+                                              break;  
+                                          case "handSize":
+                                              prefix = "手牌数";
+                                              break;
+                                          case "lifeLost":
+                                              prefix = "失去的生命值";
+                                              break;
+                                          case "Sips":
+                                              prefix = "啜饮数";
+                                              break;
+                                          case "otherHeroPower":
+                                              prefix = "另一个英雄力量增加";
+                                              break;
+                                          case "6enemyNumber":
+                                              prefix = "+6格挡";
                                               break;
                                           case "refer":
                                               return "[" + (Const.Localizations?.FirstOrDefault(t =>

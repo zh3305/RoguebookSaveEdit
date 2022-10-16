@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RoguebookSaveEdit"
+        xmlns:global="clr-namespace:"
         Loaded="AddGemsWindows_OnLoaded"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -33,8 +34,14 @@
                 <DataGridTextColumn Header="稀有度" Binding="{Binding rarityName}"/>
                 <DataGridTextColumn Header="专属类型" Binding="{Binding  heroType}"/>
                 <DataGridTextColumn Header="名称" Binding="{Binding name}"/>
-                <DataGridTextColumn Header="描述" Binding="{Binding text}"/>
-
+                <!-- <DataGridTextColumn Header="描述" Binding="{Binding text}"/> -->
+                <DataGridTemplateColumn Header="描述"  Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <RichTextBox IsReadOnly="True" global:HtmlRichTextBoxBehavior.Text="{Binding text}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="请双击选择要添加的物品:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Width="145" />

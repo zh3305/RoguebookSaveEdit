@@ -109,13 +109,14 @@ namespace RoguebookSaveEdit
             activePigment.DisplayMemberPath = "name";//显示出来的值
 
 
+            MainGrid.DataContext = _runConfig;
         }
         string runjsonfilepath;
 
         run _runConfig = new run();//初始化避免绑定出错
 
         private static readonly string ApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow");
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
             //#if DEBUG
             //            var path = Path.Combine(System.Environment.CurrentDirectory, @"");
